@@ -1,5 +1,5 @@
---temp-output:/Users/robertmontgomery/csharp/collegeAcceptancePubSub/obj/Debug/netcoreapp1.1/
---out:/Users/robertmontgomery/csharp/collegeAcceptancePubSub/bin/Debug/netcoreapp1.1/collegeAcceptancePubSub.dll
+--temp-output:/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/obj/Debug/netcoreapp1.1/
+--out:/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/bin/Debug/netcoreapp1.1/collegeAcceptancePubSub.dll
 --define:DEBUG
 --define:TRACE
 --define:NETCOREAPP1_1
@@ -87,11 +87,11 @@
 --reference:/Users/robertmontgomery/.nuget/packages/System.Threading.Timer/4.3.0/ref/netstandard1.2/System.Threading.Timer.dll
 --reference:/Users/robertmontgomery/.nuget/packages/System.Xml.ReaderWriter/4.3.0/ref/netstandard1.3/System.Xml.ReaderWriter.dll
 --reference:/Users/robertmontgomery/.nuget/packages/System.Xml.XDocument/4.3.0/ref/netstandard1.3/System.Xml.XDocument.dll
-/Users/robertmontgomery/csharp/collegeAcceptancePubSub/Extension.cs
-/Users/robertmontgomery/csharp/collegeAcceptancePubSub/IIdentifiable.cs
-/Users/robertmontgomery/csharp/collegeAcceptancePubSub/Institute.cs
-/Users/robertmontgomery/csharp/collegeAcceptancePubSub/ObservableList.cs
-/Users/robertmontgomery/csharp/collegeAcceptancePubSub/Program.cs
-/Users/robertmontgomery/csharp/collegeAcceptancePubSub/Data/SampleApplicationData.cs
-/Users/robertmontgomery/csharp/collegeAcceptancePubSub/Data/SampleInstituteData.cs
-/Users/robertmontgomery/csharp/collegeAcceptancePubSub/Models/Applicant.cs
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Extension.cs
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/IIdentifiable.cs
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Institute.cs
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/ObservableList.cs
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Program.cs
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Data/SampleApplicationData.cs
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Data/SampleInstituteData.cs
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Models/Applicant.cs

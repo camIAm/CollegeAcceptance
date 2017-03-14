@@ -27,7 +27,7 @@ namespace ConsoleApplication
 
             if(handler != null)
             {
-                e.Message += String.Format("you were accepted! On Date: {0}",DateTime.Now);
+                e.Message += String.Format(" Date: {0}",DateTime.Now);
                 handler(this,e);
             }
     }
@@ -44,7 +44,7 @@ namespace ConsoleApplication
         }
         void HandleCustomEvent(object sender, AcceptanceLetter e)
         {  
-            Console.WriteLine(_id + "received this message: applicant:{0}\n e.Message:{1}\n with standardized score of {2} " , _applicant, e.Message, _score);
+            Console.WriteLine("applicant #:{3} \n For: {0}\n {1}\n You were accepted based on your standardized score of {2} " , _applicant, e.Message, _score, _id);
         }
     }
     
@@ -69,7 +69,7 @@ namespace ConsoleApplication
                     Console.WriteLine("null ref");
                 }
                 new Subscriber(countString, app.FirstName, app.StandardizedTest, pub);
-                new Institute(institutes[counter % institutes.Count].InstituteName, pub);
+                new Institute(institutes[counter % institutes.Count].InstituteName, pub, institutes[counter % institutes.Count].MinimumScore);
                 pub.DoSomething(institutes[counter % institutes.Count]);
                 Console.WriteLine("SampleData.application:{0}", app);
             }
