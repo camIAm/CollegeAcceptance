@@ -16,7 +16,7 @@ namespace ConsoleApplication
 
         void HandleCustomEvent(object sender, AcceptanceLetter e)
         {  
-            Console.WriteLine( "applicant:{0} would like you to attend their school as of {1}\n" , InstituteName, e.Message);
+            Console.WriteLine( "Letter to applicant:{0} would like you to attend their school as of {1}\n" , InstituteName, e.Message);
         }
     }
 
