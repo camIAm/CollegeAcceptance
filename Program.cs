@@ -55,14 +55,10 @@ namespace ConsoleApplication
     }
     public class Subscriber
     {
-        //private string _id;
         private string _applicant;
         private int _score;
-        //private List<string> _applicantsNames = new List<string>();
-        //private Stack<string> _applicantsNames;// = new Stack<string>();
         public Subscriber(string applicant,int score, Publisher pub)
         {
-            //_id = id;
             _applicant = applicant;
             pub.RaiseCustomEvent += HandleCustomEvent;
             _score = score;
@@ -83,21 +79,20 @@ namespace ConsoleApplication
         {
             Console.WriteLine("We are sorry to inform you");
         }
-    
         public static void Main(string[] args)
         {
             Publisher pub = new Publisher();
-            Applicants applicantTotalList = new Applicants();
             // All this data should probably be in a static class
             SampleApplicantData sampleData = new SampleApplicantData();
             List<Applicant> applicants = sampleData.GetApplicants();
             SampleInstituteData sampleInstituteData = new SampleInstituteData();
             List<Institute> institutes = sampleInstituteData.GetInstitutes();
             
-            int counter =0;
-            int minimumScore = institutes[counter % institutes.Count].MinimumScore;
-            new Institute(institutes[counter % institutes.Count].InstituteName, pub, minimumScore);
-            
+            int counter =0; // used to vary item selection, will use random number generator once this portion is moved from main 
+            int minimumScoreNeededForAcceptance = institutes[counter % institutes.Count].MinimumScore;
+            string schoolAppliedTo =institutes[counter % institutes.Count].InstituteName;
+            new Institute(schoolAppliedTo, pub, minimumScoreNeededForAcceptance);
+            ApplicationStack applicantTotalList = new ApplicationStack();
             foreach(Applicant applicant in applicants)
             {
                 if(applicant==null)
@@ -106,24 +101,32 @@ namespace ConsoleApplication
                 }
 
                 counter ++;
-                if(applicant.StandardizedTest < minimumScore)
+                if(applicant.StandardizedTest < minimumScoreNeededForAcceptance)
                 {
                     Program.AdmissionDeciled();
+                    applicant.AcceptedMatch = false;
                 }
                 else
                 {  
+                    applicant.AcceptedMatch = true;
                     //new AcceptanceLetter(institutes[counter % institutes.Count].InstituteName);
                     new Subscriber(applicant.FirstName, applicant.StandardizedTest, pub);
                     // not sure if initiallizing AcceptanceLetter's Institue property through pub.DoSomething() is decoupling or code smell
                     pub.DoSomething(institutes[counter % institutes.Count].InstituteName);
                 }
-
+                applicant.SchoolAppliedTo = schoolAppliedTo;
+                applicant.ScoreNeeded = minimumScoreNeededForAcceptance; 
                 string countString = counter.ToString();
                 Console.WriteLine($"counter:{counter} \t");    
+                
                 applicantTotalList.ApplicantStack.Push(applicant);
                 Console.WriteLine($"Applicants Stack {applicantTotalList.ApplicantStack.Count}");
                 Console.WriteLine("SampleData.application:{0}", applicant);
             }
+            PostApplicationResults postApplicationResults = new PostApplicationResults(new Applicants(applicantTotalList));
+            postApplicationResults.TotalApplicationClass();
+            postApplicationResults.ClassAcceptancePercentage();
+            postApplicationResults.AcceptedApplicantAverageStandardizedScoreDifference();
             Console.WriteLine("Press Enter to exit");
             Console.ReadLine();
         }

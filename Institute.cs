@@ -13,7 +13,6 @@ namespace ConsoleApplication
             pub.RaiseCustomEvent += HandleCustomEvent;
             MinimumScore = minScore;
         }
-
         void HandleCustomEvent(object sender, AcceptanceLetter e)
         {  
             System.Console.WriteLine("ConsoleApplication.Institute");

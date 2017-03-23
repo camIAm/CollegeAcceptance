@@ -1,5 +1,3 @@
-using System;
-
 namespace ConsoleApplication
 {
     public class DecisionPanel
@@ -8,7 +6,7 @@ namespace ConsoleApplication
 
         public void AdmissionDecision()
         {
-            
+
         }
     }
 }

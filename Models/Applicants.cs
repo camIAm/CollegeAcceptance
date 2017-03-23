@@ -1,25 +1,61 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApplication
 {
-    public class Applicants
+    public interface IApplicants
+    {
+        Stack<Applicant> ApplicantStack{get;set;}
+        int GetTotalNumberOfApplicants();
+        double AverageApplicantClassAcceptance();
+        void ApplicantAcceptDeclineListSeparator();
+        double AcceptedApplicantStandardizedScoreDifference();
+        
+    }
+    public class Applicants : IApplicants
     {
         public Stack<Applicant> _applicantStack;
         public Stack<Applicant> ApplicantStack {get; set;}
-        //{
-         //get { return _applicantStack;}
-         //set {  _applicantStack = value ?? new Stack<Applicant>();}
-         //} 
-        public Applicants()
+        private List<Applicant> AcceptedApplicants{get;set;} 
+        private List<Applicant> DeclinedApplicants{get;set;}
+        public Applicants(ApplicationStack applicationStack)
         {
-            ApplicantStack = _applicantStack ?? new Stack<Applicant>();
-            /* 
-            if(ApplicantStack == null)
-            {
-                ApplicantStack = new Stack<Applicant>();
-            }
-            */
+            ApplicantStack = applicationStack.ApplicantStack;
+            AcceptedApplicants = AcceptedApplicants ?? new List<Applicant>();
+            DeclinedApplicants = DeclinedApplicants ?? new List<Applicant>();
+            ApplicantAcceptDeclineListSeparator();
         }
-    }
+        public int GetTotalNumberOfApplicants()
+        {
+            return ApplicantStack.Count;
+        }
+        public double AverageApplicantClassAcceptance()
+        {
+            int totalAcceptedApplicants = AcceptedApplicants.Count;
+            int totalOverallApplicants = AcceptedApplicants.Count + DeclinedApplicants.Count;
+            double average = totalAcceptedApplicants / totalOverallApplicants;
+            return average;
+        }
+        public double AcceptedApplicantStandardizedScoreDifference()
+        {
+            int totalDifference = AcceptedApplicants
+                                    .Sum(s=> {
+                                        return s.StandardizedTest - s.ScoreNeeded;
+                                        });
+
+            return totalDifference/(AcceptedApplicants.Count);
+        }
+        public void ApplicantAcceptDeclineListSeparator()
+        {    
+            while(ApplicantStack.Count > 0)
+            {
+                Applicant applicant = ApplicantStack.Pop();
+                if(!applicant.AcceptedMatch)
+                {
+                    DeclinedApplicants.Add(applicant);
+                }
+                AcceptedApplicants.Add(applicant);
+            }
+        }
+    }   
 }

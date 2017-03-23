@@ -23,7 +23,7 @@ namespace ConsoleApplication
                     institute = new Institute
                     {
                         InstituteName = instituteArr[byteArr[i] % instituteArr.Length],
-                        MinimumScore = instituteMinScores[byteArr[i]% instituteMinScores.Length]
+                        MinimumScore = instituteMinScores[byteArr[i] % instituteMinScores.Length]
                     };
                     institutes.Add(institute);
                 }

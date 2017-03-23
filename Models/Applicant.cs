@@ -11,6 +11,10 @@ namespace ConsoleApplication
             get{return FirstName + " " + LastName;}
         }
         public int StandardizedTest{get;set;}
+        public bool AcceptedMatch { get; set; }
+        public string SchoolAppliedTo { get; set; }
+        public int ScoreNeeded { get; set; }
+        
         public Applicant(){}
         public Applicant(string fname, string lname, int standardTest)
         {
