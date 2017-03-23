@@ -87,10 +87,10 @@
 --reference:/Users/robertmontgomery/.nuget/packages/System.Threading.Timer/4.3.0/ref/netstandard1.2/System.Threading.Timer.dll
 --reference:/Users/robertmontgomery/.nuget/packages/System.Xml.ReaderWriter/4.3.0/ref/netstandard1.3/System.Xml.ReaderWriter.dll
 --reference:/Users/robertmontgomery/.nuget/packages/System.Xml.XDocument/4.3.0/ref/netstandard1.3/System.Xml.XDocument.dll
+/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/DecisionPanel.cs
 /Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Extension.cs
 /Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/IIdentifiable.cs
 /Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Institute.cs
-/Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/ObservableList.cs
 /Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Program.cs
 /Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Data/SampleApplicationData.cs
 /Users/robertmontgomery/csharp/PubSubProjects/collegeAcceptancePubSub/Data/SampleInstituteData.cs

@@ -111,8 +111,7 @@ namespace ConsoleApplication
                     Program.AdmissionDeciled();
                 }
                 else
-                {
-                    
+                {  
                     //new AcceptanceLetter(institutes[counter % institutes.Count].InstituteName);
                     new Subscriber(applicant.FirstName, applicant.StandardizedTest, pub);
                     // not sure if initiallizing AcceptanceLetter's Institue property through pub.DoSomething() is decoupling or code smell
