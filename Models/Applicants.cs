@@ -5,16 +5,15 @@ namespace ConsoleApplication
 {
     public interface IApplicants
     {
-        Stack<Applicant> ApplicantStack{get;set;}
         int GetTotalNumberOfApplicants();
         double AverageApplicantClassAcceptance();
         void ApplicantAcceptDeclineListSeparator();
+        Stack<Applicant> ApplicantStack{get;set;}
         double AcceptedApplicantStandardizedScoreDifference();
         
     }
     public class Applicants : IApplicants
     {
-        public Stack<Applicant> _applicantStack;
         public Stack<Applicant> ApplicantStack {get; set;}
         private List<Applicant> AcceptedApplicants{get;set;} 
         private List<Applicant> DeclinedApplicants{get;set;}
@@ -39,9 +38,7 @@ namespace ConsoleApplication
         public double AcceptedApplicantStandardizedScoreDifference()
         {
             int totalDifference = AcceptedApplicants
-                                    .Sum(s=> {
-                                        return s.StandardizedTest - s.ScoreNeeded;
-                                        });
+                                    .Sum(s=>s.StandardizedTest - s.ScoreNeeded);
 
             return totalDifference/(AcceptedApplicants.Count);
         }

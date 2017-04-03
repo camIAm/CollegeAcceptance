@@ -8,7 +8,7 @@ namespace ConsoleApplication
         readonly string greeting = "Congrats";
         public string Message {get; set;}
         //public Institute Institute;
-        public string Institute;
+        public string Institute{ get;set; }
         public AcceptanceLetter(string institute) // should take (Institute institute), 
         // make lone institute call with zip, and shit
         // change Institute class to something including score criteria
@@ -59,9 +59,10 @@ namespace ConsoleApplication
         private int _score;
         public Subscriber(string applicant,int score, Publisher pub)
         {
+            pub.RaiseCustomEvent = null;
             _applicant = applicant;
-            pub.RaiseCustomEvent += HandleCustomEvent;
             _score = score;
+            pub.RaiseCustomEvent += HandleCustomEvent;
         }
         void HandleCustomEvent(object sender, AcceptanceLetter e)
         {  
