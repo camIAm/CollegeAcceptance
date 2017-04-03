@@ -122,7 +122,7 @@ namespace ConsoleApplication
                 
                 applicantTotalList.ApplicantStack.Push(applicant);
                 Console.WriteLine($"Applicants Stack {applicantTotalList.ApplicantStack.Count}");
-                Console.WriteLine("SampleData.application:{0}", applicant);
+                Console.WriteLine($"SampleData.application:{applicant}\n");
             }
             PostApplicationResults postApplicationResults = new PostApplicationResults(new Applicants(applicantTotalList));
             postApplicationResults.TotalApplicationClass();

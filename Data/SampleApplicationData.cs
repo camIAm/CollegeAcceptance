@@ -8,7 +8,7 @@ namespace ConsoleApplication
         public List<Applicant> _applicants;
         string[] firstnames = new string[5]{"jim","tom", "jack","jake","mitch"};
         string[] lastnames = new string[5]{"johnson","thomas", "jackson","montgomery","jackson"};
-        int[] scores = new int[5]{1500, 1200, 1100, 1450, 1350};
+        int[] scores = new int[5]{1500, 1200, 1000, 950, 1350};
         public List<Applicant> GetApplicants()
         {
             List<Applicant> applicantPool = new List<Applicant>();

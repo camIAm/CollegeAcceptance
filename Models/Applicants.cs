@@ -32,7 +32,7 @@ namespace ConsoleApplication
         {
             int totalAcceptedApplicants = AcceptedApplicants.Count;
             int totalOverallApplicants = AcceptedApplicants.Count + DeclinedApplicants.Count;
-            double average = totalAcceptedApplicants / totalOverallApplicants;
+            double average = ((double)totalAcceptedApplicants/(double)totalOverallApplicants);
             return average;
         }
         public double AcceptedApplicantStandardizedScoreDifference()
@@ -51,7 +51,10 @@ namespace ConsoleApplication
                 {
                     DeclinedApplicants.Add(applicant);
                 }
-                AcceptedApplicants.Add(applicant);
+                else
+                {
+                    AcceptedApplicants.Add(applicant);
+                }
             }
         }
     }   
