@@ -3,15 +3,6 @@ using System.Linq;
 
 namespace ConsoleApplication
 {
-    public interface IApplicants
-    {
-        int GetTotalNumberOfApplicants();
-        double AverageApplicantClassAcceptance();
-        void ApplicantAcceptDeclineListSeparator();
-        Stack<Applicant> ApplicantStack{get;set;}
-        double AcceptedApplicantStandardizedScoreDifference();
-        
-    }
     public class Applicants : IApplicants
     {
         public Stack<Applicant> ApplicantStack {get; set;}

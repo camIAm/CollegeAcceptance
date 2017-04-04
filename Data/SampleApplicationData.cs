@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConsoleApplication
 {
-    public class SampleApplicantData
+    public class SampleApplicantData : ILoadApplicants
     {
         public List<Applicant> _applicants;
         string[] firstnames = new string[5]{"jim","tom", "jack","jake","mitch"};
@@ -20,8 +20,10 @@ namespace ConsoleApplication
             Console.WriteLine("starting random mix and match applicants");
             for(int i=randomByteArr.GetLowerBound(0);
              i<=randomByteArr.GetUpperBound(0);
-              i++){
-                applicant = new Applicant{
+              i++)
+            {
+                applicant = new Applicant
+                {
                     FirstName = firstnames[randomByteArr[i] % firstnames.Length],
                     LastName = lastnames[randomByteArr[i] % lastnames.Length],
                     StandardizedTest = scores[randomByteArr[i] % scores.Length]

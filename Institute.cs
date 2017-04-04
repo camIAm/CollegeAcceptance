@@ -4,14 +4,12 @@ namespace ConsoleApplication
 {
     public class Institute
     {
-        internal string InstituteName{get;set;}
-        public int MinimumScore{get;set;}
+        internal string InstituteName{ get;set; } 
+        public int MinimumScore{ get;set; }
         public Institute(){}
-        public Institute(string instituteName, Publisher pub, int minScore)
+        public Institute(Publisher pub)
         {
-            InstituteName = instituteName;
             pub.RaiseCustomEvent += HandleCustomEvent;
-            MinimumScore = minScore;
         }
         void HandleCustomEvent(object sender, AcceptanceLetter e)
         {  

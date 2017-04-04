@@ -5,13 +5,23 @@ namespace ConsoleApplication
 {
     public class SampleInstituteData
     {
-        string[] instituteArr = new string[5]{"USC", "Clemson", "Citadel", "CofC", "UGA"};
-        int[] instituteMinScores = new int[5]{1500, 1455, 1100, 1150, 1000};
+        public int PoolSize { get; set; }
+        string[] instituteArr = new string[14]{"USC", "Clemson", "Citadel", "CofC", "UGA", "UF","FSU", "GT", "UGA","JMU","UVA","VT", "UNC", "NCST"};
+        public int[] instituteMinScores{ get; set; }// = new int[5]{1500, 1455, 1100, 1150, 1000};
+        public void SetInstituteTestRequirements()
+        {
+            instituteMinScores = new int [PoolSize];
+            Random randomNum = new Random();
+            for(int i = 0; i < PoolSize; i++ )
+            {
+                instituteMinScores[i] = randomNum.Next(1000, 1600);
+            }
+        }
         public List<Institute> GetInstitutes()
         {
-
+            SetInstituteTestRequirements();
             List<Institute> institutes = new List<Institute>();
-            Institute institute;
+            Institute institute = new Institute();
 
             Random rnd = new Random();
             byte[] byteArr = new byte[20];
@@ -19,7 +29,8 @@ namespace ConsoleApplication
             
             for(int i = byteArr.GetLowerBound(0);
                 i<= byteArr.GetUpperBound(0);
-                i++){
+                i++)
+                {
                     institute = new Institute
                     {
                         InstituteName = instituteArr[byteArr[i] % instituteArr.Length],

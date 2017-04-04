@@ -2,98 +2,42 @@
 using System.Collections.Generic;
 
 namespace ConsoleApplication
-{
-    public class AcceptanceLetter :EventArgs
-    {
-        readonly string greeting = "Congrats";
-        public string Message {get; set;}
-        //public Institute Institute;
-        public string Institute{ get;set; }
-        public AcceptanceLetter(string institute) // should take (Institute institute), 
-        // make lone institute call with zip, and shit
-        // change Institute class to something including score criteria
-        // 
-        {
-            Message = greeting;
-            Institute = institute;
-        }
-    }
-    public class Publisher
-    {
-        Object objectLock = new Object();
-        public event EventHandler<AcceptanceLetter> RaiseCustomEvent;
-        public event EventHandler<AcceptanceLetter> RaiseCustomEvents
-        {
-            add
-            {
-                lock (objectLock)
-                {
-                    RaiseCustomEvent += value;
-                }
-            }
-            remove
-            {
-                lock (objectLock)
-                {
-                    RaiseCustomEvent -= value;
-                }
-            }
-        }
-        public void DoSomething(string institute)    //Institute institute)
-        {
-            OnRaisedEvent(new AcceptanceLetter(institute)); // make canidate object
-        }
-        void OnRaisedEvent(AcceptanceLetter e)
-        {
-            EventHandler<AcceptanceLetter> handler = RaiseCustomEvent;
-
-            if(handler != null)
-            {
-                e.Message += String.Format($" Date: {DateTime.Now}");
-                handler(this,e);
-            }
-    }
-    public class Subscriber
-    {
-        private string _applicant;
-        private int _score;
-        public Subscriber(string applicant,int score, Publisher pub)
-        {
-            pub.RaiseCustomEvent = null;
-            _applicant = applicant;
-            _score = score;
-            pub.RaiseCustomEvent += HandleCustomEvent;
-        }
-        void HandleCustomEvent(object sender, AcceptanceLetter e)
-        {  
-            System.Console.WriteLine("From Subscriber.HandleCustomeEvent:");
-            System.Console.WriteLine($"\t Type:ConsoleApplication.Institute \n\t\t e.Message: {e.Message} e.Institute: {e.Institute}");
-            System.Console.WriteLine($"\t ConsoleApplication.Publisher.Subscriber \n\t\t _applicant: {_applicant}, _score: {_score}");
-            //Console.WriteLine("applicant #:{3} \n For: {0}\n {1}\n You were accepted based on your standardized score of {2} " , _applicant, e.Message, _score, _id);
-            //System.Console.WriteLine("List of applicants {0}",_applicantsNames.Count);
-        }
-    }
-    
+{ 
     public class Program
     {
-        public static void AdmissionDeciled()
+        public static void AdmissionDeciled(Applicant applicant, Institute institute)
         {
             Console.WriteLine("We are sorry to inform you");
+            System.Console.WriteLine($"Applicant {applicant.FirstName} was rejected with as score of {applicant.ScoreNeeded}");
+            System.Console.WriteLine($"Institue {institute.InstituteName} required {institute.MinimumScore}");
         }
         public static void Main(string[] args)
         {
             Publisher pub = new Publisher();
             // All this data should probably be in a static class
-            SampleApplicantData sampleData = new SampleApplicantData();
-            List<Applicant> applicants = sampleData.GetApplicants();
+            var dataSourceDict = new Dictionary<DataSource, Lazy<ILoadApplicants>>
+            {
+                {DataSource.Mock , new Lazy<ILoadApplicants>(() => new SampleApplicantData())},
+                {DataSource.CSV, new Lazy<ILoadApplicants>(() => new CSVData())},
+                {DataSource.Db, new Lazy<ILoadApplicants>(() => new DbData())},
+                {DataSource.InternetService, new Lazy<ILoadApplicants>(() => new InternetServiceData())}
+            };
+            DataFactory dtFactory = new DataFactory(dataSourceDict);
+            var dtSource = dtFactory.GetApplicantSource(DataSource.Mock);
+            var applicants = dtSource.GetApplicants();
+
             SampleInstituteData sampleInstituteData = new SampleInstituteData();
+            sampleInstituteData.PoolSize = 30; // this can be changed to take user input
             List<Institute> institutes = sampleInstituteData.GetInstitutes();
             
-            int counter =0; // used to vary item selection, will use random number generator once this portion is moved from main 
-            int minimumScoreNeededForAcceptance = institutes[counter % institutes.Count].MinimumScore;
-            string schoolAppliedTo =institutes[counter % institutes.Count].InstituteName;
-            new Institute(schoolAppliedTo, pub, minimumScoreNeededForAcceptance);
-            ApplicationStack applicantTotalList = new ApplicationStack();
+            int counter = 0; // used to vary item selection, will use random number generator once this portion is moved from main 
+            int instituteMinimumScoreNeededForAcceptance = institutes[counter % institutes.Count].MinimumScore;
+            string instituteAppliedTo = institutes[counter % institutes.Count].InstituteName;
+            Institute institute = new Institute(pub);
+            institute.InstituteName = instituteAppliedTo;
+            institute.MinimumScore = instituteMinimumScoreNeededForAcceptance;
+            ApplicationStack applicantStack = new ApplicationStack();
+            Subscriber subscriber = new Subscriber(pub);
             foreach(Applicant applicant in applicants)
             {
                 if(applicant==null)
@@ -101,30 +45,31 @@ namespace ConsoleApplication
                     Console.WriteLine("null ref");
                 }
 
+                applicant.SchoolAppliedTo = instituteAppliedTo;
+                //applicant.ScoreNeeded = instituteMinimumScoreNeededForAcceptance;
                 counter ++;
-                if(applicant.StandardizedTest < minimumScoreNeededForAcceptance)
+
+                if(applicant.StandardizedTest < instituteMinimumScoreNeededForAcceptance)
                 {
-                    Program.AdmissionDeciled();
+                    Program.AdmissionDeciled(applicant, institute);
                     applicant.AcceptedMatch = false;
                 }
                 else
                 {  
                     applicant.AcceptedMatch = true;
-                    //new AcceptanceLetter(institutes[counter % institutes.Count].InstituteName);
-                    new Subscriber(applicant.FirstName, applicant.StandardizedTest, pub);
+                    subscriber.Applicant = applicant.FirstName;
+                    subscriber.Score = applicant.StandardizedTest;
                     // not sure if initiallizing AcceptanceLetter's Institue property through pub.DoSomething() is decoupling or code smell
                     pub.DoSomething(institutes[counter % institutes.Count].InstituteName);
-                }
-                applicant.SchoolAppliedTo = schoolAppliedTo;
-                applicant.ScoreNeeded = minimumScoreNeededForAcceptance; 
+                } 
                 string countString = counter.ToString();
                 Console.WriteLine($"counter:{counter} \t");    
                 
-                applicantTotalList.ApplicantStack.Push(applicant);
-                Console.WriteLine($"Applicants Stack {applicantTotalList.ApplicantStack.Count}");
+                applicantStack.ApplicantStack.Push(applicant);
+                Console.WriteLine($"Applicants Stack {applicantStack.ApplicantStack.Count}");
                 Console.WriteLine($"SampleData.application:{applicant}\n");
             }
-            PostApplicationResults postApplicationResults = new PostApplicationResults(new Applicants(applicantTotalList));
+            PostApplicationResults postApplicationResults = new PostApplicationResults(new Applicants(applicantStack));
             postApplicationResults.TotalApplicationClass();
             postApplicationResults.ClassAcceptancePercentage();
             postApplicationResults.AcceptedApplicantAverageStandardizedScoreDifference();
@@ -140,4 +85,4 @@ namespace ConsoleApplication
             Console.WriteLine("Post Fish-Yates SampleData.application :{0}", applicant);
             }
   */           
-}
+
