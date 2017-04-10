@@ -15,10 +15,9 @@ namespace ConsoleApplication
             DeclinedApplicants = DeclinedApplicants ?? new List<Applicant>();
             ApplicantAcceptDeclineListSeparator();
         }
-        public int GetTotalNumberOfApplicants()
-        {
-            return ApplicantStack.Count;
-        }
+        public int GetTotalNumberOfApplicants() => AcceptedApplicants.Count + DeclinedApplicants.Count;
+        public int GetTotalNumberOfAcceptedApplicants() => AcceptedApplicants.Count;
+        public int GetTotalNumberOfDeclinedApplicants() => DeclinedApplicants.Count;
         public double AverageApplicantClassAcceptance()
         {
             int totalAcceptedApplicants = AcceptedApplicants.Count;
@@ -30,7 +29,10 @@ namespace ConsoleApplication
         {
             int totalDifference = AcceptedApplicants
                                     .Sum(s=>s.StandardizedTest - s.ScoreNeeded);
-
+            if(totalDifference == 0)
+            {
+                return 0;
+            }
             return totalDifference/(AcceptedApplicants.Count);
         }
         public void ApplicantAcceptDeclineListSeparator()

@@ -8,7 +8,7 @@ namespace ConsoleApplication
         public static void AdmissionDeciled(Applicant applicant, Institute institute)
         {
             Console.WriteLine("We are sorry to inform you");
-            System.Console.WriteLine($"Applicant {applicant.FirstName} was rejected with as score of {applicant.ScoreNeeded}");
+            System.Console.WriteLine($"Applicant {applicant.FirstName} was rejected with as score of {applicant.StandardizedTest}");
             System.Console.WriteLine($"Institue {institute.InstituteName} required {institute.MinimumScore}");
         }
         public static void Main(string[] args)
@@ -48,6 +48,7 @@ namespace ConsoleApplication
                 applicant.SchoolAppliedTo = instituteAppliedTo;
                 //applicant.ScoreNeeded = instituteMinimumScoreNeededForAcceptance;
                 counter ++;
+                applicant.ScoreNeeded = instituteMinimumScoreNeededForAcceptance;
 
                 if(applicant.StandardizedTest < instituteMinimumScoreNeededForAcceptance)
                 {
@@ -70,9 +71,7 @@ namespace ConsoleApplication
                 Console.WriteLine($"SampleData.application:{applicant}\n");
             }
             PostApplicationResults postApplicationResults = new PostApplicationResults(new Applicants(applicantStack));
-            postApplicationResults.TotalApplicationClass();
-            postApplicationResults.ClassAcceptancePercentage();
-            postApplicationResults.AcceptedApplicantAverageStandardizedScoreDifference();
+            postApplicationResults.StatsClass();
             Console.WriteLine("Press Enter to exit");
             Console.ReadLine();
         }

@@ -19,7 +19,7 @@ namespace ConsoleApplication
             StandardizedTest = standardTest;
         } 
         public override string ToString(){
-            return FirstName.ToString();
+            return $"{FirstName}";
         }
     }
 }

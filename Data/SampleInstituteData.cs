@@ -7,7 +7,7 @@ namespace ConsoleApplication
     {
         public int PoolSize { get; set; }
         string[] instituteArr = new string[14]{"USC", "Clemson", "Citadel", "CofC", "UGA", "UF","FSU", "GT", "UGA","JMU","UVA","VT", "UNC", "NCST"};
-        public int[] instituteMinScores{ get; set; }// = new int[5]{1500, 1455, 1100, 1150, 1000};
+        public int[] instituteMinScores{ get; set; }
         public void SetInstituteTestRequirements()
         {
             instituteMinScores = new int [PoolSize];
