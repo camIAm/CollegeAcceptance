@@ -11,7 +11,8 @@
             "cwd": "${workspaceRoot}",
             "externalConsole": false,
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "enableStepFiltering": false
         },
         {
             "name": ".NET Core Attach",

@@ -18,14 +18,14 @@ namespace ConsoleApplication
         public int GetTotalNumberOfApplicants() => AcceptedApplicants.Count + DeclinedApplicants.Count;
         public int GetTotalNumberOfAcceptedApplicants() => AcceptedApplicants.Count;
         public int GetTotalNumberOfDeclinedApplicants() => DeclinedApplicants.Count;
-        public double AverageApplicantClassAcceptance()
+        public decimal AverageApplicantClassAcceptance()
         {
             int totalAcceptedApplicants = AcceptedApplicants.Count;
             int totalOverallApplicants = AcceptedApplicants.Count + DeclinedApplicants.Count;
-            double average = ((double)totalAcceptedApplicants/(double)totalOverallApplicants);
+            decimal average = ((decimal)totalAcceptedApplicants/(decimal)totalOverallApplicants);
             return average;
         }
-        public double AcceptedApplicantStandardizedScoreDifference()
+        public decimal AcceptedApplicantStandardizedScoreDifference()
         {
             int totalDifference = AcceptedApplicants
                                     .Sum(s=>s.StandardizedTest - s.ScoreNeeded);

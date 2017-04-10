@@ -7,10 +7,10 @@ namespace ConsoleApplication
         int GetTotalNumberOfApplicants();
         int GetTotalNumberOfAcceptedApplicants();
         int GetTotalNumberOfDeclinedApplicants();
-        double AverageApplicantClassAcceptance();
+        decimal AverageApplicantClassAcceptance();
         void ApplicantAcceptDeclineListSeparator();
         Stack<Applicant> ApplicantStack{get;set;}
-        double AcceptedApplicantStandardizedScoreDifference();
+        decimal AcceptedApplicantStandardizedScoreDifference();
         
     }
 }

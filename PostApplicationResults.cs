@@ -32,18 +32,19 @@ namespace ConsoleApplication
         }
         public void ClassAcceptancePercentage()
         {
-            double acceptedApplicants = _applicants.AverageApplicantClassAcceptance();
-            double percentAccepted = acceptedApplicants * 100;
-            System.Console.WriteLine($"Percent of applicants accepted to 'match' institute {percentAccepted}");
+            decimal acceptedApplicants = _applicants.AverageApplicantClassAcceptance();
+            decimal percentAccepted = acceptedApplicants * 100;
+            //double percent = System.Math.Round(percentAccepted,2);
+            System.Console.WriteLine("Percent of applicants accepted to 'match' institute {0}",percentAccepted.ToString("F"));
         }
         public void AcceptedApplicantAverageStandardizedScoreDifference()
         {
-            double score = _applicants.AcceptedApplicantStandardizedScoreDifference();
+            decimal score = _applicants.AcceptedApplicantStandardizedScoreDifference();
             if(score == 0)
             {
                 System.Console.WriteLine($"Standardized Score Difference of accepted applicant {score}, since no applicants were accepted");
             }
-            System.Console.WriteLine($"Standardized Score Difference of accepted applicant {score}");
+            System.Console.WriteLine("Standardized Score Difference of accepted applicant {0}",score.ToString("F"));
         }
     }
 }
