@@ -5,9 +5,10 @@ namespace ConsoleApplication
 {
     public class Applicants : IApplicants
     {
-        public Stack<Applicant> ApplicantStack {get; set;}
-        private List<Applicant> AcceptedApplicants{get;set;} 
-        private List<Applicant> DeclinedApplicants{get;set;}
+        public Stack<Applicant> ApplicantStack { get; set; }
+        private List<Applicant> AcceptedApplicants{ get;set; } 
+        private List<Applicant> DeclinedApplicants{ get;set; }
+        
         public Applicants(ApplicationStack applicationStack)
         {
             ApplicantStack = applicationStack.ApplicantStack;
